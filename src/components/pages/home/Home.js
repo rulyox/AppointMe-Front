@@ -6,7 +6,11 @@ const Home = () => {
     return (
         <div className="Home">
 
-            <span id="home__title">AppointMe</span>
+            <div id="home__top">
+
+                <span id="home__top__title">AppointMe</span>
+
+            </div>
 
             <div className="home__id-search">
 
