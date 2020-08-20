@@ -1,60 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Calendar.css';
 import Header from '../../header/Header';
+import requests from '../../../requests';
 
-const CalendarTable = () => {
+const CalendarTable = (props) => {
 
-    const events = [
-        {
-            time: 3,
-            color: '#FF0000',
-            text: 'meet 1'
-        },
-        {
-            time: 2,
-            color: '#00FF00',
-            text: 'meet 2'
-        }
-    ];
-
-    const arr = [
-        [0, 0, 0, 1, 0, 0, 0],
-        [0, 0, 0, -1, 0, 0, 0],
-        [0, 2, 0, -1, 0, 0, 0],
-        [0, -1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0]
-    ];
+    const list = props.data.list;
+    const matrix = props.data.matrix;
 
     const rows = [];
 
-    for(const time of arr) {
+    if(matrix !== undefined) {
 
-        const times = [<th className="calendar__table__time-column">9:00</th>];
+        for(const [index, time] of matrix.entries()) {
 
-        for(const item of time) {
+            const row = [<th className="calendar__table__time-column">{index}:00</th>];
 
-            if(item === 0) times.push(<td className="calendar__table__day-column" />);
-            else if(item > 0) {
+            for(const item of time) {
 
-                const event = events[item-1];
-                times.push(
-                    <td className="calendar__table__day-column" rowSpan={event.time} style={{'background-color': event.color}}>{event.text}</td>
-                );
+                if(item === 0) row.push(<td className="calendar__table__day-column" />);
+                else if(item > 0) {
+
+                    const appointment = list[item-1];
+
+                    const startTime = Number(appointment.start_time.split(':')[0]);
+                    const endTime = Number(appointment.end_time.split(':')[0]);
+
+                    row.push(<td className="calendar__table__day-column" rowSpan={endTime-startTime} style={{'backgroundColor': '#EEEEEE'}}>{appointment.appoint_name}</td>);
+
+                }
 
             }
 
-        }
+            rows.push(<tr>{row}</tr>);
 
-        rows.push(
-            <tr>
-                {times}
-            </tr>
-        );
+        }
 
     }
 
@@ -62,6 +42,7 @@ const CalendarTable = () => {
         <div className="calendar__table">
             <table className="table table-bordered">
                 <tbody>
+
                     <tr>
                         <th className="calendar__table__time-column"/>
                         <th className="calendar__table__day-column">Monday</th>
@@ -74,6 +55,7 @@ const CalendarTable = () => {
                     </tr>
 
                     {rows}
+
                 </tbody>
             </table>
         </div>
@@ -84,6 +66,26 @@ const CalendarTable = () => {
 const Calendar = ({match}) => {
 
     const id = match.params.id;
+    const [userData, setUserData] = useState({});
+    const [appointments, setAppointments] = useState({});
+
+    useEffect(() => {
+
+        requests.user.getData(id)
+            .then((result) => setUserData(result))
+            .catch((error) => console.log(error));
+
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []);
+
+    useEffect(() => {
+
+        requests.appointment.get(id, '20200820')
+            .then((result) => setAppointments(result))
+            .catch((error) => console.log(error));
+
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []);
 
     return (
         <div className="Calendar">
@@ -91,11 +93,11 @@ const Calendar = ({match}) => {
             <Header />
 
             <div className="calendar__top">
-                <span id="calendar__top__name">{id}</span>
+                <span id="calendar__top__name">{userData.name}</span>
                 <button id="calendar__top__add" type="button" className="btn btn-primary">Add</button>
             </div>
 
-            <CalendarTable />
+            <CalendarTable data={appointments} />
 
         </div>
     );
