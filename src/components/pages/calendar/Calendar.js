@@ -92,7 +92,7 @@ const Calendar = ({ match }) => {
     []);
 
     return (
-        <div className="Calendar">
+        <div id="calendar">
 
             <Header />
 

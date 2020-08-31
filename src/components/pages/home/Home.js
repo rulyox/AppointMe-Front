@@ -7,7 +7,7 @@ const Home = () => {
     const [userId, setUserId] = useState('');
 
     return (
-        <div className="Home">
+        <div id="home">
 
             <div id="home__top">
 

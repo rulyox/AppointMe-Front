@@ -4,7 +4,7 @@ import './Header.css';
 
 const Header = () => {
     return (
-        <div className="Header">
+        <div id="header">
             <Link to={'/'} id="header__title">
                 <span>AppointMe</span>
             </Link>
