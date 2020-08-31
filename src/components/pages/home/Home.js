@@ -4,7 +4,7 @@ import './Home.css';
 
 const Home = () => {
 
-    const [id, setId] = useState('');
+    const [userId, setUserId] = useState('');
 
     return (
         <div className="Home">
@@ -19,10 +19,10 @@ const Home = () => {
 
                 <div className="home__id-input">
                     <input className="form-control" id="inputId" type="text" placeholder="Enter user ID"
-                           onChange={(e) => setId(e.target.value)} />
+                           onChange={(e) => setUserId(e.target.value)} />
                 </div>
 
-                <Link to={`/${id}`}>
+                <Link to={`/${userId}`}>
                     <button type="button" className="btn btn-primary">Search</button>
                 </Link>
 

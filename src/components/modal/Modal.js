@@ -24,11 +24,11 @@ const Modal = ({ visible, close, children }) => {
 
     return (
         <Portal elementId="modal-root">
-            <div id="ModalOverlay" style={{'display': visible?'block':'none'}} />
-            <div id="ModalWrapper" tabIndex="-1" onClick={onMaskClick} style={{'display': visible?'block':'none'}}>
-                <div id="ModalInner" tabIndex="0">
+            <div id="modal__overlay" style={{'display': visible?'block':'none'}} />
+            <div id="modal__wrapper" tabIndex="-1" onClick={onMaskClick} style={{'display': visible?'block':'none'}}>
+                <div id="modal__inner" tabIndex="0">
 
-                    <div id="ModalClose" onClick={close}>
+                    <div id="modal__close" onClick={close}>
                         <i className="fas fa-times" />
                     </div>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Calendar.css';
 import Header from '../../header/Header';
 import Modal from '../../modal/Modal';
+import AddModal from '../../modal/add/AddModal';
 import requests from '../../../requests';
 
 const CalendarTable = (props) => {
@@ -65,16 +66,16 @@ const CalendarTable = (props) => {
 
 };
 
-const Calendar = ({match}) => {
+const Calendar = ({ match }) => {
 
-    const id = match.params.id;
+    const userId = match.params.userId;
     const [userData, setUserData] = useState({});
     const [appointments, setAppointments] = useState({});
     const [showAddModal, setShowAddModal] = useState(false);
 
     useEffect(() => {
 
-        requests.user.getData(id)
+        requests.user.getData(userId)
             .then((result) => setUserData(result))
             .catch((error) => console.log(error));
 
@@ -83,7 +84,7 @@ const Calendar = ({match}) => {
 
     useEffect(() => {
 
-        requests.appointment.get(id, '20200820')
+        requests.appointment.get(userId, '20200820')
             .then((result) => setAppointments(result))
             .catch((error) => console.log(error));
 
@@ -110,7 +111,7 @@ const Calendar = ({match}) => {
 
             <Modal visible={showAddModal}
                    close={() => setShowAddModal(false)}>
-                <span>Add Schedule</span>
+                <AddModal userId={userId} />
             </Modal>
 
         </div>
