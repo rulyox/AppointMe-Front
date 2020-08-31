@@ -1,7 +1,7 @@
 import { getData } from './user';
-import { get } from './appointment';
+import { get, create } from './appointment';
 
 export default {
     user: { getData },
-    appointment: { get }
+    appointment: { get, create }
 };

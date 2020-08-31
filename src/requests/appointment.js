@@ -12,3 +12,21 @@ export const get = (id, week) => {
 
     });
 };
+
+export const create = (id, date, startTime, endTime, name, description) => {
+    return new Promise((resolve, reject) => {
+
+        axios.post(server + '/appointment/' + id,
+            {
+                date: date,
+                startTime: startTime,
+                endTime: endTime,
+                name: name,
+                description: description,
+                unavailable: false
+            })
+            .then((response) => resolve(response.data))
+            .catch((error) => reject(error));
+
+    });
+};
