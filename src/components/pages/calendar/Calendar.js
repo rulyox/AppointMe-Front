@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Calendar.css';
 import Header from '../../header/Header';
+import Modal from '../../modal/Modal';
 import requests from '../../../requests';
 
 const CalendarTable = (props) => {
@@ -9,16 +10,17 @@ const CalendarTable = (props) => {
     const matrix = props.data.matrix;
 
     const rows = [];
+    let rowKey = 0;
 
     if(matrix !== undefined) {
 
         for(const [index, time] of matrix.entries()) {
 
-            const row = [<th className="calendar__table__time-column">{index}:00</th>];
+            const row = [<th className="calendar__table__time-column" key={rowKey++}>{index}:00</th>];
 
             for(const item of time) {
 
-                if(item === 0) row.push(<td className="calendar__table__day-column" />);
+                if(item === 0) row.push(<td className="calendar__table__day-column" key={rowKey++}/>);
                 else if(item > 0) {
 
                     const appointment = list[item-1];
@@ -26,13 +28,13 @@ const CalendarTable = (props) => {
                     const startTime = Number(appointment.start_time.split(':')[0]);
                     const endTime = Number(appointment.end_time.split(':')[0]);
 
-                    row.push(<td className="calendar__table__day-column" rowSpan={endTime-startTime} style={{'backgroundColor': '#EEEEEE'}}>{appointment.appoint_name}</td>);
+                    row.push(<td className="calendar__table__day-column" key={rowKey++} rowSpan={endTime-startTime} style={{'backgroundColor': '#EEEEEE'}}>{appointment.appoint_name}</td>);
 
                 }
 
             }
 
-            rows.push(<tr>{row}</tr>);
+            rows.push(<tr key={rowKey++}>{row}</tr>);
 
         }
 
@@ -68,6 +70,7 @@ const Calendar = ({match}) => {
     const id = match.params.id;
     const [userData, setUserData] = useState({});
     const [appointments, setAppointments] = useState({});
+    const [showAddModal, setShowAddModal] = useState(false);
 
     useEffect(() => {
 
@@ -93,11 +96,22 @@ const Calendar = ({match}) => {
             <Header />
 
             <div className="calendar__top">
+
                 <span id="calendar__top__name">{userData.name}</span>
-                <button id="calendar__top__add" type="button" className="btn btn-primary">Add</button>
+
+                <button id="calendar__top__add" type="button" className="btn btn-primary"
+                        onClick={() => setShowAddModal(true)}>
+                    Add
+                </button>
+
             </div>
 
             <CalendarTable data={appointments} />
+
+            <Modal visible={showAddModal}
+                   close={() => setShowAddModal(false)}>
+                <span>Add Schedule</span>
+            </Modal>
 
         </div>
     );
