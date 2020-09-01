@@ -1,15 +1,14 @@
 #calendar {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
-.calendar__top {
+#calendar__top {
     width: 80%;
+    margin-top: 50px;
     margin-bottom: 50px;
 
     display: flex;
@@ -25,11 +24,9 @@
     margin-left: auto;
 }
 
-.calendar__table {
+#calendar__table {
     width: 80%;
-    height: 70%;
-
-    overflow: auto;
+    margin-bottom: 50px;
 }
 
 .calendar__table__time-column {

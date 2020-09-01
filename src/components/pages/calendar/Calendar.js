@@ -42,7 +42,7 @@ const CalendarTable = (props) => {
     }
 
     return (
-        <div className="calendar__table">
+        <div id="calendar__table">
             <table className="table table-bordered">
                 <tbody>
 
@@ -96,7 +96,7 @@ const Calendar = ({ match }) => {
 
             <Header />
 
-            <div className="calendar__top">
+            <div id="calendar__top">
 
                 <span id="calendar__top__name">{userData.name}</span>
 
@@ -109,10 +109,12 @@ const Calendar = ({ match }) => {
 
             <CalendarTable data={appointments} />
 
-            <Modal visible={showAddModal}
-                   close={() => setShowAddModal(false)}>
-                <AddModal userId={userId} />
-            </Modal>
+            {
+                showAddModal &&
+                <Modal close={() => setShowAddModal(false)}>
+                    <AddModal userId={userId} />
+                </Modal>
+            }
 
         </div>
     );
