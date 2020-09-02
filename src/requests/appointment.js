@@ -22,8 +22,7 @@ export const create = (id, date, startTime, endTime, name, description) => {
                 startTime: startTime,
                 endTime: endTime,
                 name: name,
-                description: description,
-                unavailable: false
+                description: description
             })
             .then((response) => resolve(response.data))
             .catch((error) => reject(error));
