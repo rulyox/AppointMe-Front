@@ -23,18 +23,3 @@
 #calendar__top__add {
     margin-left: auto;
 }
-
-#calendar__table {
-    width: 80%;
-    margin-bottom: 50px;
-}
-
-.calendar__table__time-column {
-    width: 9%;
-    text-align: center;
-}
-
-.calendar__table__day-column {
-    width: 13%;
-    text-align: center;
-}
