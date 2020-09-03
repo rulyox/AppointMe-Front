@@ -26,17 +26,17 @@ const CalendarTable = (props) => {
 
                     const appointment = list[item-1];
 
-                    const startTime = Number(appointment.start_time.split(':')[0]);
-                    const endTime = Number(appointment.end_time.split(':')[0]);
+                    const startTime = Number(appointment.startTime.split(':')[0]);
+                    const endTime = Number(appointment.endTime.split(':')[0]);
 
                     row.push(
                         <td className="calendar__table__day-column"
                             key={rowKey++}
                             rowSpan={endTime-startTime}
-                            style={{'backgroundColor': appointment.app_color}}>
-                            <span>{appointment.app_name}</span>
+                            style={{'backgroundColor': appointment.color}}>
+                            <span>{appointment.name}</span>
                             <br />
-                            <span>{appointment.app_description}</span>
+                            <span>{appointment.description}</span>
                         </td>
                     );
 
