@@ -20,6 +20,20 @@
     font-size: 30px;
 }
 
-#calendar__top__add {
+#calendar__top__menu {
     margin-left: auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#calendar__top__date {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#calendar__top__add {
+    margin-left: 30px;
 }
