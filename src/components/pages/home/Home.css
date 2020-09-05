@@ -21,7 +21,12 @@
 #home__top__title {
     color: #FAFAFA;
     font-size: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+}
+
+#home__top__desc {
+    color: #FAFAFA;
+    font-size: 20px;
 }
 
 .home__id-search {

@@ -12,6 +12,7 @@ const Home = () => {
             <div id="home__top">
 
                 <span id="home__top__title">AppointMe</span>
+                <span id="home__top__desc">Easily create and share personal appointments.</span>
 
             </div>
 
