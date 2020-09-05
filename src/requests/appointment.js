@@ -13,7 +13,7 @@ export const get = (id, week) => {
     });
 };
 
-export const create = (id, date, startTime, endTime, name, description) => {
+export const create = (id, date, startTime, endTime, name, description, color) => {
     return new Promise((resolve, reject) => {
 
         axios.post(server + '/appointment/' + id,
@@ -22,7 +22,8 @@ export const create = (id, date, startTime, endTime, name, description) => {
                 startTime: startTime,
                 endTime: endTime,
                 name: name,
-                description: description
+                description: description,
+                color: color
             })
             .then((response) => resolve(response.data))
             .catch((error) => reject(error));

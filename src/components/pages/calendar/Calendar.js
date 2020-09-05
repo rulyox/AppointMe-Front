@@ -15,6 +15,40 @@ const Calendar = ({ match }) => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
+    const loadAppointments = () => {
+
+        const year = startDate.getFullYear();
+        const month = startDate.getMonth() + 1;
+        const date = startDate.getDate();
+
+        const week = `${year}${month < 10 ? '0' + month : month}${date < 10 ? '0' + date : date}`;
+
+        requests.appointment.get(userId, week)
+            .then((result) => setAppointments(result))
+            .catch((error) => console.log(error));
+
+    };
+
+    const dateBackward = () => {
+
+        const newStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() - 7);
+        const newEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 7);
+
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+
+    };
+
+    const dateForward = () => {
+
+        const newStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 7);
+        const newEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 7);
+
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+
+    };
+
     // load user data
     useEffect(() => {
 
@@ -40,40 +74,9 @@ const Calendar = ({ match }) => {
     []);
 
     // get appointments
-    useEffect(() => {
-
-        const year = startDate.getFullYear();
-        const month = startDate.getMonth() + 1;
-        const date = startDate.getDate();
-
-        const week = `${year}${month < 10 ? '0' + month : month}${date < 10 ? '0' + date : date}`;
-
-        requests.appointment.get(userId, week)
-            .then((result) => setAppointments(result))
-            .catch((error) => console.log(error));
-
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(loadAppointments,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [startDate]);
-
-    const dateBackward = () => {
-
-        const newStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() - 7);
-        const newEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 7);
-
-        setStartDate(newStartDate);
-        setEndDate(newEndDate);
-
-    };
-
-    const dateForward = () => {
-
-        const newStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 7);
-        const newEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 7);
-
-        setStartDate(newStartDate);
-        setEndDate(newEndDate);
-
-    };
 
     return (
         <div id="calendar">
@@ -114,7 +117,7 @@ const Calendar = ({ match }) => {
             {
                 showAddModal &&
                 <Modal close={() => setShowAddModal(false)}>
-                    <AddModal userId={userId} />
+                    <AddModal userId={userId} created={() => { setShowAddModal(false); loadAppointments(); }} />
                 </Modal>
             }
 
