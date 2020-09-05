@@ -55,6 +55,26 @@ const Calendar = ({ match }) => {
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [startDate]);
 
+    const dateBackward = () => {
+
+        const newStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() - 7);
+        const newEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 7);
+
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+
+    };
+
+    const dateForward = () => {
+
+        const newStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 7);
+        const newEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 7);
+
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+
+    };
+
     return (
         <div id="calendar">
 
@@ -66,7 +86,8 @@ const Calendar = ({ match }) => {
 
                 <div id="calendar__top__menu">
 
-                    <button type="button" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary"
+                            onClick={dateBackward}>
                         <i className="fas fa-chevron-left" />
                     </button>
 
@@ -74,7 +95,8 @@ const Calendar = ({ match }) => {
                         {startDate.getFullYear()}-{startDate.getMonth()+1}-{startDate.getDate()} - {endDate.getFullYear()}-{endDate.getMonth()+1}-{endDate.getDate()}
                     </span>
 
-                    <button type="button" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary"
+                            onClick={dateForward}>
                         <i className="fas fa-chevron-right" />
                     </button>
 
