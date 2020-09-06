@@ -4,6 +4,40 @@ import Modal from '../../../modal/Modal';
 import DeleteModal from '../../../modal/delete/DeleteModal';
 import requests from '../../../../requests';
 
+// Check if color is dark or light (https://awik.io/determine-color-bright-dark-using-javascript/)
+const isColorDark = (color) => {
+
+    let r, g, b;
+
+    if (color.match(/^rgb/)) { // RGB
+
+        color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+
+        r = color[1];
+        g = color[2];
+        b = color[3];
+
+    } else { // HEX (convert to RGB)
+
+        color = +("0x" + color.slice(1).replace(color.length < 5 && /./g, '$&$&'));
+
+        r = color >> 16;
+        g = color >> 8 & 255;
+        b = color & 255;
+    }
+
+    // HSP (http://alienryderflex.com/hsp.html)
+    const hsp = Math.sqrt(
+        0.299 * (r * r) +
+        0.587 * (g * g) +
+        0.114 * (b * b)
+    );
+
+    if(hsp > 127.5) return false;
+    else return true;
+
+};
+
 const CalendarTable = (props) => {
 
     const list = props.data.list;
@@ -56,11 +90,13 @@ const CalendarTable = (props) => {
                     const startTime = Number(appointment.startTime.split(':')[0]);
                     const endTime = Number(appointment.endTime.split(':')[0]);
 
+                    const textColor = isColorDark(appointment.color) ? '#FAFAFA' : '#222222';
+
                     row.push(
-                        <td className="calendar__table__day-column"
+                        <td className="align-middle calendar__table__day-column"
                             key={rowKey++}
                             rowSpan={endTime-startTime}
-                            style={{'backgroundColor': appointment.color}}
+                            style={{'backgroundColor': appointment.color, 'color': textColor}}
                             onClick={() => clickAppointment(appointment.id)}>
                             <span>{appointment.name}</span>
                             <br />
