@@ -29,22 +29,29 @@
     font-size: 20px;
 }
 
-.home__id-search {
+#home__bottom {
     position: absolute;
-    top: 70%;
-    height: 40px;
-    margin-top: -40px;
-    padding: 40px;
+    bottom: 10%;
 
-    background-color: #FAFAFA;
-    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#home__bottom__id-search {
+    margin-bottom: 50px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.home__id-input {
+#home__bottom__id-input {
     width: 300px;
     margin-right: 50px;
+}
+
+#home__bottom__account {
+    display: flex;
+    flex-direction: row;
 }

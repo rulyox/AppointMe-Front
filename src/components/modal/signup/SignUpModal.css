@@ -1,0 +1,9 @@
+#signup-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-modal__input {
+    margin-bottom: 30px;
+}
