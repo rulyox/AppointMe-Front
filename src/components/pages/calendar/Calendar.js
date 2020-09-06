@@ -147,7 +147,7 @@ const Calendar = ({ match }) => {
 
             </div>
 
-            <CalendarTable data={appointments} />
+            <CalendarTable data={appointments} isAdmin={isAdmin} refresh={loadAppointments} />
 
             {
                 showAddModal &&

@@ -1,11 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './CalendarTable.css';
+import Modal from '../../../modal/Modal';
+import DeleteModal from '../../../modal/delete/DeleteModal';
 
 const CalendarTable = (props) => {
 
     const list = props.data.list;
     const matrix = props.data.matrix;
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [targetId, setTargetId] = useState(0);
 
+    const clickAppointment = (id) => {
+
+        if(props.isAdmin) {
+            setTargetId(id);
+            setShowDeleteModal(true);
+        }
+
+    };
+
+    const deleteAppointment = () => {
+
+        setShowDeleteModal(false);
+
+        if(targetId !== 0) {
+
+            const token = localStorage.getItem('token');
+
+            console.log(token, targetId);
+
+            // refresh calendar
+            props.refresh();
+
+        }
+
+    };
+
+    // parse appointment data
     const rows = [];
     let rowKey = 0;
 
@@ -29,7 +60,8 @@ const CalendarTable = (props) => {
                         <td className="calendar__table__day-column"
                             key={rowKey++}
                             rowSpan={endTime-startTime}
-                            style={{'backgroundColor': appointment.color}}>
+                            style={{'backgroundColor': appointment.color}}
+                            onClick={() => clickAppointment(appointment.id)}>
                             <span>{appointment.name}</span>
                             <br />
                             <span>{appointment.description}</span>
@@ -66,6 +98,13 @@ const CalendarTable = (props) => {
 
                 </tbody>
             </table>
+
+            {
+                showDeleteModal &&
+                <Modal close={() => setShowDeleteModal(false)}>
+                    <DeleteModal click={deleteAppointment} />
+                </Modal>
+            }
         </div>
     );
 
