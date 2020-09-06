@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import './Calendar.css';
 import Header from '../../header/Header';
 import CalendarTable from './table/CalendarTable';
@@ -14,6 +15,7 @@ const Calendar = ({ match }) => {
     const [showAddModal, setShowAddModal] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const history = useHistory();
 
     const loadAppointments = () => {
 
@@ -54,7 +56,14 @@ const Calendar = ({ match }) => {
 
         requests.user.getData(userId)
             .then((result) => setUserData(result))
-            .catch((error) => console.log(error));
+            .catch((error) => {
+
+                console.log(error);
+
+                alert('This ID does not exist!');
+                history.push('/');
+
+            });
 
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
     []);
