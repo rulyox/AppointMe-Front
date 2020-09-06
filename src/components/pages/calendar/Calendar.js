@@ -15,6 +15,7 @@ const Calendar = ({ match }) => {
     const [showAddModal, setShowAddModal] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const [isAdmin, setIsAdmin] = useState(false);
     const history = useHistory();
 
     const loadAppointments = () => {
@@ -87,6 +88,26 @@ const Calendar = ({ match }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [startDate]);
 
+    // check if admin
+    useEffect(() => {
+
+        const token = localStorage.getItem('token');
+
+        if(token !== null) {
+
+            requests.user.checkToken(token)
+                .then((result) => {
+                    const id = result.id;
+                    if(id === userId) setIsAdmin(true);
+                })
+                .catch((error) => console.log(error));
+
+        }
+
+
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []);
+
     return (
         <div id="calendar">
 
@@ -95,6 +116,11 @@ const Calendar = ({ match }) => {
             <div id="calendar__top">
 
                 <span id="calendar__top__name">{userData.name}</span>
+
+                {
+                    isAdmin &&
+                    <span id="calendar__top__my-account">my account</span>
+                }
 
                 <div id="calendar__top__menu">
 

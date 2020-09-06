@@ -20,6 +20,11 @@
     font-size: 30px;
 }
 
+#calendar__top__my-account {
+    color: #EF6C00;
+    margin-left: 30px;
+}
+
 #calendar__top__menu {
     margin-left: auto;
 
