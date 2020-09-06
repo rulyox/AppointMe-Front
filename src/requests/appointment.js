@@ -30,3 +30,16 @@ export const create = (id, date, startTime, endTime, name, description, color) =
 
     });
 };
+
+export const deleteAppointment = (token, id) => {
+    return new Promise((resolve, reject) => {
+
+        axios.delete(server + '/appointment/' + id,
+            {
+                headers: {token: token}
+            })
+            .then((response) => resolve(response.data))
+            .catch((error) => reject(error));
+
+    });
+};

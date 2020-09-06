@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './CalendarTable.css';
 import Modal from '../../../modal/Modal';
 import DeleteModal from '../../../modal/delete/DeleteModal';
+import requests from '../../../../requests';
 
 const CalendarTable = (props) => {
 
@@ -27,10 +28,9 @@ const CalendarTable = (props) => {
 
             const token = localStorage.getItem('token');
 
-            console.log(token, targetId);
-
-            // refresh calendar
-            props.refresh();
+            requests.appointment.deleteAppointment(token, targetId)
+                .then(() => props.refresh())
+                .catch((error) => console.log(error));
 
         }
 
