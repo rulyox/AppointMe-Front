@@ -12,3 +12,12 @@
     width: 13%;
     text-align: center;
 }
+
+.calendar__table__name {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.calendar__table__desc {
+    font-size: 15px;
+}

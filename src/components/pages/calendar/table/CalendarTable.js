@@ -98,9 +98,8 @@ const CalendarTable = (props) => {
                             rowSpan={endTime-startTime}
                             style={{'backgroundColor': appointment.color, 'color': textColor}}
                             onClick={() => clickAppointment(appointment.id)}>
-                            <span>{appointment.name}</span>
-                            <br />
-                            <span>{appointment.description}</span>
+                            <div className="calendar__table__name">{appointment.name}</div>
+                            <div className="calendar__table__desc">{appointment.description}</div>
                         </td>
                     );
 
