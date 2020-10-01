@@ -36,7 +36,7 @@ export const deleteAppointment = (token, id) => {
 
         axios.delete(server + '/appointment/' + id,
             {
-                headers: {token: token}
+                headers: {'Authorization': `Bearer ${token}`}
             })
             .then((response) => resolve(response.data))
             .catch((error) => reject(error));

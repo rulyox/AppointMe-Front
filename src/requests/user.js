@@ -47,7 +47,7 @@ export const checkToken = (token) => {
 
         axios.get(server + '/user',
             {
-                headers: {token: token}
+                headers: {'Authorization': `Bearer ${token}`}
             })
             .then((response) => resolve(response.data))
             .catch((error) => reject(error));
